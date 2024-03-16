@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Community Page</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #5cdb95;
+      }
+      .post {
+        border: 1px solid teal;
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 10%;
+      }
+      .post-title {
+        font-size: 20px;
+        margin-bottom: 5px;
+        border-radius: 10%;
+      }
+      .post-content {
+        margin-bottom: 2rem;
+        border-radius: 10%;
+        margin-top: 2rem;
+      }
+      .comment {
+        border-top: 1px solid #ddd;
+        margin-top: 10px;
+        padding-top: 10px;
+        border-radius: 10%;
+      }
+      .profile {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+      .profile-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #ddd;
+        margin-right: 10px;
+      }
+
+      #new-post-form {
+        background-color: white;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+        padding-left: 2rem;
+        padding-right: 2rem;
+        box-sizing: border-box;
+        justify-content: center;
+
+        box-shadow: 0 0 50px -20px #000;
+        align-items: center;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        margin: 20px;
+        width: 35%;
+        height: 450px;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        height: 40px;
+
+        padding-left: 10px;
+        margin-bottom: 20px;
+
+        /* background: #edf5e1; */
+        background: #efe2bf;
+        font-family: Montserrat;
+        font-weight: 500;
+        color: black;
+        font-size: 15px;
+
+        border-bottom: 2px solid transparent;
+        border-top-left-radius: 2%;
+        border-top-right-radius: 2%;
+        /* border-image: -webkit-linear-gradient(25deg, #FFBE0B, #FB5607, #FF006E, #8338EC, #3A86FF) 1; */
+        border-color: green;
+      }
+      #button_container {
+        width: 100%;
+        height: 10%;
+
+        /* background-image: linear-gradient(80deg, #FFBE0B, #FB5607 50%, #FF006E 50%, #8338EC); */
+        color: #fff;
+        /* background-color: teal; */
+        background: #05386b;
+
+        float: left;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 20px;
+
+        margin-top: 5px;
+      }
+
+      #button_container button {
+        width: 100%;
+        height: 20px;
+
+        padding-left: 10px;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        /* float: left; */
+
+        background: transparent;
+        color: inherit;
+
+        font-family: Montserrat;
+        letter-spacing: 1px;
+        font-weight: 900;
+        /* font-size: 30px; */
+
+        cursor: pointer;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      #com-box {
+        display: flex;
+        justify-content: center;
+        /* background-color: white; */
+        text-align: center;
+      }
+      #posts {
+        background-color: #efe2bf;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+        padding-left: 2rem;
+        padding-right: 2rem;
+        box-sizing: border-box;
+        box-shadow: 0 0 50px -20px #000;
+        /* height: 10%; */
+        /* width : 90%; */
+      }
+      h2 {
+        color: #05386b;
+      }
+      .border:hover {
+        border: 2px solid black;
+        box-shadow: 0 0 3px #ff0000, 0 0 5px #0000ff;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="com-box">
+      <form id="new-post-form">
+        <h2>ENTER COMMUNITY POST</h2>
+        <br />
+        <input type="text" id="new-post-title" placeholder="Title" required />
+        <input
+          type="text"
+          id="author-name"
+          placeholder="Author Name "
+          required
+        />
+        <textarea
+          id="new-post-content"
+          placeholder="Content"
+          required
+        ></textarea>
+        <input
+          type="text"
+          id="new-post-contact"
+          placeholder="Contact Number"
+          required
+        />
+        <button id="button_container" type="submit" class="border">
+          Submit
+        </button>
+      </form>
+    </div>
+
+    <div id="posts">
+      <script>
+        var posts = [
+          {
+            title: "LAPTOP",
+            content: "This is a dell laptop ",
+            comments: [],
+            author: "Namo NGO",
+            contact: "123-456-7890",
+          },
+          {
+            title: "mobile",
+            content: "This is nokia mobile.",
+            comments: [],
+            author: " NGO2",
+            contact: "098-765-4321",
+          },
+        ];
+
+        var postsContainer = document.getElementById("posts");
+        var newPostForm = document.getElementById("new-post-form");
+        var newPostTitle = document.getElementById("new-post-title");
+        var newPostContent = document.getElementById("new-post-content");
+        var newPostContact = document.getElementById("new-post-contact");
+        var newauthorname = document.getElementById("author-name");
+
+        function renderPosts() {
+          var postsContainer = document.getElementById("posts");
+          postsContainer.innerHTML = "";
+
+          for (var i = 0; i < posts.length; i++) {
+            var post = posts[i];
+
+            var postElement = document.createElement("div");
+            postElement.className = "post";
+
+            var profileElement = document.createElement("div");
+            profileElement.className = "profile";
+            var iconElement = document.createElement("div");
+            iconElement.className = "profile-icon";
+            profileElement.appendChild(iconElement);
+            var nameElement = document.createElement("p");
+            nameElement.textContent = post.author + " (" + post.contact + ")";
+            profileElement.appendChild(nameElement);
+            postElement.appendChild(profileElement);
+
+            var titleElement = document.createElement("h2");
+            titleElement.className = "post-title";
+            titleElement.textContent = post.title;
+            postElement.appendChild(titleElement);
+
+            var contentElement = document.createElement("p");
+            contentElement.className = "post-content";
+            contentElement.textContent = post.content;
+            postElement.appendChild(contentElement);
+
+            var commentsElement = document.createElement("div");
+            commentsElement.className = "comments";
+            for (var j = 0; j < post.comments.length; j++) {
+              var comment = post.comments[j];
+              var commentElement = document.createElement("p");
+              commentElement.className = "comment";
+              commentElement.textContent = comment;
+              commentsElement.appendChild(commentElement);
+            }
+            postElement.appendChild(commentsElement);
+
+            postsContainer.appendChild(postElement);
+          }
+        }
+
+        class Store {
+          static getInfo() {
+            let info;
+            if (localStorage.getItem("posts") === null) {
+              info = [];
+            } else {
+              info = JSON.parse(localStorage.getItem("posts"));
+            }
+            return info;
+          }
+
+          static addInfo(info) {
+            const posts = Store.getInfo();
+            posts.push(info);
+            localStorage.setItem("posts", JSON.stringify(posts));
+          }
+        }
+
+        var newPostForm = document.getElementById("new-post-form");
+        newPostForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          var title = newPostTitle.value;
+          var content = newPostContent.value;
+          var contact = newPostContact.value;
+          var author = newauthorname.value;
+
+          if (title && content && contact) {
+            // posts.push({
+            //   title: title,
+            //   content: content,
+            //   comments: [],
+            //   author: author,
+            //   contact: contact,
+            // });
+            const newPost = {
+              title: title,
+              content: content,
+              comments: [],
+              author: author,
+              contact: contact,
+            };
+
+            Store.addInfo(newPost);
+
+            newPostTitle.value = "";
+            newPostContent.value = "";
+            newPostContact.value = "";
+            newauthorname.value = "";
+
+            // renderPosts();
+            loadPostsFromStorage();
+          } else {
+            alert("Title,author, content and contact number are required!");
+          }
+        });
+
+        function loadPostsFromStorage() {
+          const storedPosts = Store.getInfo();
+          if (storedPosts.length > 0) {
+            posts = storedPosts;
+            renderPosts(); // Render posts from local storage
+          }
+        }
+        window.localstorage.clear();
+
+        // Call function to load posts when the page loads
+        loadPostsFromStorage();
+      </script>
+    </div>
+  </body>
+</html>
